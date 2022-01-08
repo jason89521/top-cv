@@ -4,16 +4,24 @@ import styled from 'styled-components';
 import Headshot from './Headshot';
 
 class GeneralInfo extends React.Component {
+  onInputChange = event => {
+    this.props.onUpdate(event.target.id, event.target.value);
+  };
+
+  onImageChange = url => {
+    this.props.onUpdate('headshotSrc', url);
+  };
+
   render() {
     return (
       <div>
         <TopDiv>
-          <Headshot />
+          <Headshot onImageChange={this.onImageChange} />
           <div>
-            <TextField label='Name' />
-            <TextField label='Email' />
-            <TextField label='Phone' />
-            <TextField label='Address' />
+            <TextField id='name' label='Name' onChange={this.onInputChange} />
+            <TextField id='email' label='Email' onChange={this.onInputChange} />
+            <TextField id='phone' label='Phone' onChange={this.onInputChange} />
+            <TextField id='address' label='Address' onChange={this.onInputChange} />
           </div>
         </TopDiv>
 

@@ -23,20 +23,26 @@ class OtherForm extends React.Component {
         break;
       }
     }
-    this.setState({ blocks: newBlocks });
+    this.setState({ blocks: newBlocks }, () => {
+      this.props.onUpdate(this.props.title, this.state.blocks);
+    });
   };
 
   onClickAdd = event => {
     const newBlocks = [...this.state.blocks];
     newBlocks.push(createBlock(getLabels(this.props.title)));
-    this.setState({ blocks: newBlocks });
+    this.setState({ blocks: newBlocks }, () => {
+      this.props.onUpdate(this.props.title, this.state.blocks);
+    });
   };
 
   onClickDelete = blockId => {
     const newBlocks = [...this.state.blocks];
     const idx = newBlocks.findIndex(block => block.blockId === blockId);
     newBlocks.splice(idx, 1);
-    this.setState({ blocks: newBlocks });
+    this.setState({ blocks: newBlocks }, () => {
+      this.props.onUpdate(this.props.title, this.state.blocks);
+    });
   };
 
   componentDidMount() {
@@ -74,6 +80,7 @@ class OtherForm extends React.Component {
 
 const Container = styled.div`
   text-align: center;
+  margin-bottom: 2rem;
   & > *:not(:last-child) {
     margin-bottom: 2rem;
   }

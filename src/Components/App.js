@@ -4,14 +4,43 @@ import GeneralForm from './GeneralForm';
 import OtherForm from './OtherForm';
 
 class App extends React.Component {
+  state = {
+    generalInfo: {
+      headshotSrc: '',
+      name: '',
+      email: '',
+      phone: '',
+      address: '',
+    },
+    educationInfo: [],
+    experienceInfo: [],
+  };
+
+  /**
+   * GeneralForm components call this function whenever it update info.
+   */
+  updateGeneralInfo = (property, value) => {
+    const generalInfo = { ...this.state.generalInfo };
+    generalInfo[property] = value;
+    this.setState({ generalInfo: generalInfo });
+  };
+
+  /**
+   * OtherForm components call this function whenever it update info.
+   */
+  updateOtherInfo = (title, blocks) => {
+    if (title === 'Education') this.setState({ educationInfo: blocks });
+    else this.setState({ experienceInfo: blocks });
+  };
+
   render() {
     return (
-      <React.Fragment>
+      <div>
         <GlobalStyles />
-        <GeneralForm />
-        <OtherForm title='Education' />
-        <OtherForm title='Experience' />
-      </React.Fragment>
+        <GeneralForm info={this.state.generalInfo} onUpdate={this.updateGeneralInfo} />
+        <OtherForm title='Education' onUpdate={this.updateOtherInfo} />
+        <OtherForm title='Experience' onUpdate={this.updateOtherInfo} />
+      </div>
     );
   }
 }

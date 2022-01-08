@@ -10,7 +10,9 @@ class Headshot extends React.Component {
   onInputChange = event => {
     const [file] = event.target.files;
     if (file) {
-      this.setState({ imageSrc: URL.createObjectURL(file) });
+      this.setState({ imageSrc: URL.createObjectURL(file) }, () => {
+        this.props.onImageChange(this.state.imageSrc);
+      });
     }
   };
 
@@ -27,7 +29,8 @@ class Headshot extends React.Component {
 }
 
 const Container = styled.div`
-  min-width: 300px;
+  width: 300px;
+  height: 400px;
 `;
 
 const Label = styled.label`
