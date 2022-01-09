@@ -1,7 +1,8 @@
 import React from 'react';
-import { createGlobalStyle } from 'styled-components';
-import GeneralForm from './GeneralForm';
-import OtherForm from './OtherForm';
+import styled, { createGlobalStyle } from 'styled-components';
+import Header from '../Header';
+import GeneralForm from './Form/GeneralForm';
+import OtherForm from './Form/OtherForm';
 import Preview from './Preview/Preview';
 
 class App extends React.Component {
@@ -38,14 +39,23 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Preview {...this.state} />
+        <GlobalStyles />
+        <Header />
 
-        <div>
-          <GlobalStyles />
+        <Main>
           <GeneralForm info={this.state.generalInfo} onUpdate={this.updateGeneralInfo} />
-          <OtherForm title='Education' onUpdate={this.updateOtherInfo} info={this.state.educationInfo} />
-          <OtherForm title='Experience' onUpdate={this.updateOtherInfo} info={this.state.experienceInfo} />
-        </div>
+          <OtherForm
+            title='Education'
+            onUpdate={this.updateOtherInfo}
+            info={this.state.educationInfo}
+          />
+          <OtherForm
+            title='Experience'
+            onUpdate={this.updateOtherInfo}
+            info={this.state.experienceInfo}
+          />
+          <Preview {...this.state} />
+        </Main>
       </React.Fragment>
     );
   }
@@ -56,10 +66,22 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font-family: inherit;
   }
 
   body {
-    padding: 2.5rem 15rem;
+    padding: 1rem 1.5rem;
+    background-color: #efefeff9;
+    font-family: 'Titillium Web', sans-serif;
+  }
+`;
+
+const Main = styled.main`
+  padding: 2.5rem 15rem;
+  position: relative;
+
+  & > *:last-child {
+    margin-top: 5rem;
   }
 `;
 

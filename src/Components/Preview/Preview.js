@@ -24,7 +24,7 @@ const Container = styled.div`
   gap: 3rem;
   font-size: 1.5rem;
   min-height: 800px;
-  background-color: #f5f5dc;
+  background-image: linear-gradient(to right bottom, #7ed56f80, #28b48580);
 
   & > div:first-child {
     flex: 2;
