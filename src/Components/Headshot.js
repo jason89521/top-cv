@@ -16,6 +16,10 @@ class Headshot extends React.Component {
     }
   };
 
+  componentDidMount() {
+    this.props.onImageChange(this.state.imageSrc);
+  }
+
   render() {
     return (
       <Container>

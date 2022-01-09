@@ -25,7 +25,13 @@ class GeneralInfo extends React.Component {
           </div>
         </TopDiv>
 
-        <TextField multiline rows={5} label='Biography' />
+        <TextField
+          multiline
+          rows={5}
+          id='biography'
+          label='Biography'
+          onChange={this.onInputChange}
+        />
       </div>
     );
   }

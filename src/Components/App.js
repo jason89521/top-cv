@@ -2,6 +2,7 @@ import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import GeneralForm from './GeneralForm';
 import OtherForm from './OtherForm';
+import Preview from './Preview/Preview';
 
 class App extends React.Component {
   state = {
@@ -11,13 +12,14 @@ class App extends React.Component {
       email: '',
       phone: '',
       address: '',
+      biography: '',
     },
     educationInfo: [],
     experienceInfo: [],
   };
 
   /**
-   * GeneralForm components call this function whenever it update info.
+   * GeneralForm component call this function whenever it update info.
    */
   updateGeneralInfo = (property, value) => {
     const generalInfo = { ...this.state.generalInfo };
@@ -26,7 +28,7 @@ class App extends React.Component {
   };
 
   /**
-   * OtherForm components call this function whenever it update info.
+   * OtherForm component call this function whenever it update info.
    */
   updateOtherInfo = (title, blocks) => {
     if (title === 'Education') this.setState({ educationInfo: blocks });
@@ -35,12 +37,16 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <GlobalStyles />
-        <GeneralForm info={this.state.generalInfo} onUpdate={this.updateGeneralInfo} />
-        <OtherForm title='Education' onUpdate={this.updateOtherInfo} />
-        <OtherForm title='Experience' onUpdate={this.updateOtherInfo} />
-      </div>
+      <React.Fragment>
+        <Preview {...this.state} />
+
+        <div>
+          <GlobalStyles />
+          <GeneralForm info={this.state.generalInfo} onUpdate={this.updateGeneralInfo} />
+          <OtherForm title='Education' onUpdate={this.updateOtherInfo} info={this.state.educationInfo} />
+          <OtherForm title='Experience' onUpdate={this.updateOtherInfo} info={this.state.experienceInfo} />
+        </div>
+      </React.Fragment>
     );
   }
 }

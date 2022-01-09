@@ -10,8 +10,8 @@ export const createBlock = labels => {
     blockId: uniqid('block'),
     inputs: [],
   };
-  for (let label in labels) {
-    const input = { label: label, value: '' };
+  for (let i = 0; i< labels.length; i++) {
+    const input = { label: labels[i], value: '' };
     block.inputs.push(input);
   }
   return block;
