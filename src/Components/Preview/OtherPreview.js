@@ -1,26 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 
-class OtherPreview extends React.Component {
-  render() {
-    const { title, info } = this.props;
-    const infoBlocks = info.map(infoBlock => {
-      return (
-        <Div key={infoBlock.blockId}>
-          <p>{infoBlock.inputs[3].value} - {infoBlock.inputs[4].value}</p>
-          <p>{infoBlock.inputs[0].value}</p>
-          <p>{infoBlock.inputs[1].value}</p>
-          <p>{infoBlock.inputs[2].value}</p>
-        </Div>
-      )
-    })
+const OtherPreview = ({title, info}) => {
+  const infoBlocks = info.map(infoBlock => {
     return (
-      <div>
-        <Title>{title}</Title>
-        {infoBlocks}
-      </div>
-    );
-  }
+      <Div key={infoBlock.blockId}>
+        <p>{infoBlock.inputs[3].value} - {infoBlock.inputs[4].value}</p>
+        <p>{infoBlock.inputs[0].value}</p>
+        <p>{infoBlock.inputs[1].value}</p>
+        <p>{infoBlock.inputs[2].value}</p>
+      </Div>
+    )
+  })
+  return (
+    <div>
+      <Title>{title}</Title>
+      {infoBlocks}
+    </div>
+  );
 }
 
 const Title = styled.h3`

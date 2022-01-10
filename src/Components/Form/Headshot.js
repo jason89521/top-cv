@@ -1,36 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import defaultImg from './default.png';
 
-class Headshot extends React.Component {
-  state = {
-    imageSrc: defaultImg,
-  };
-
-  onInputChange = event => {
+const Headshot = ({ onImageChange }) => {
+  const [imageSrc, setImageSrc] = useState(defaultImg);
+  const onInputChange = event => {
     const [file] = event.target.files;
-    if (file) {
-      this.setState({ imageSrc: URL.createObjectURL(file) }, () => {
-        this.props.onImageChange(this.state.imageSrc);
-      });
-    }
+    if (file) setImageSrc(URL.createObjectURL(file));
   };
 
-  componentDidMount() {
-    this.props.onImageChange(this.state.imageSrc);
-  }
+  useEffect(() => {
+    onImageChange(imageSrc);
+  });
 
-  render() {
-    return (
-      <Container>
-        <Label htmlFor='headshot'>
-          <Image src={this.state.imageSrc} />
-        </Label>
-        <Input id='headshot' type='file' onChange={this.onInputChange} />
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      <Label htmlFor='headshot'>
+        <Image src={imageSrc} />
+      </Label>
+      <Input id='headshot' type='file' onChange={onInputChange} />
+    </Container>
+  );
+};
 
 const Container = styled.div`
   width: 300px;

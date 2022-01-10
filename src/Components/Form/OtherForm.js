@@ -4,14 +4,9 @@ import styled from 'styled-components';
 import Block from './Block';
 import { getLabels, createBlock } from '../utils/OtherForm';
 
-class OtherForm extends React.Component {
-  /**
-   * @param {string} blockId
-   * @param {string} label
-   * @param {string} value
-   */
-  onBlockChange = (blockId, label, value) => {
-    const newBlocks = [...this.props.info];
+const OtherForm = ({ title, info, onUpdate }) => {
+  const onBlockChange = (blockId, label, value) => {
+    const newBlocks = [...info];
     const idx = newBlocks.findIndex(block => block.blockId === blockId);
     const updatedBlock = newBlocks[idx];
     for (let i = 0; i < updatedBlock.inputs.length; i++) {
@@ -20,50 +15,47 @@ class OtherForm extends React.Component {
         break;
       }
     }
-    this.props.onUpdate(this.props.title, newBlocks)
+    onUpdate(title, newBlocks);
   };
 
-  onClickAdd = event => {
-    const newBlocks = [...this.props.info];
-    newBlocks.push(createBlock(getLabels(this.props.title)));
-    this.props.onUpdate(this.props.title, newBlocks)
+  const onClickAdd = event => {
+    const newBlocks = [...info];
+    newBlocks.push(createBlock(getLabels(title)));
+    onUpdate(title, newBlocks);
   };
 
-  onClickDelete = blockId => {
-    const newBlocks = [...this.props.info];
+  const onClickDelete = blockId => {
+    const newBlocks = [...info];
     const idx = newBlocks.findIndex(block => block.blockId === blockId);
     newBlocks.splice(idx, 1);
-    this.props.onUpdate(this.props.title, newBlocks)
+    onUpdate(title, newBlocks);
   };
 
-  render() {
-    const { title } = this.props;
-    const labels = getLabels(title);
-    const blockComponents = this.props.info.map(block => {
-      return (
-        <Block
-          key={block.blockId}
-          blockId={block.blockId}
-          labels={labels}
-          onBlockChange={this.onBlockChange}
-          onClickDelete={this.onClickDelete}
-        />
-      );
-    });
-
+  const labels = getLabels(title);
+  const blockComponents = info.map(block => {
     return (
-      <Container>
-        <Title>{title}</Title>
-
-        {blockComponents}
-
-        <Button variant='contained' onClick={this.onClickAdd}>
-          Add
-        </Button>
-      </Container>
+      <Block
+        key={block.blockId}
+        blockId={block.blockId}
+        labels={labels}
+        onBlockChange={onBlockChange}
+        onClickDelete={onClickDelete}
+      />
     );
-  }
-}
+  });
+
+  return (
+    <Container>
+      <Title>{title}</Title>
+
+      {blockComponents}
+
+      <Button variant='contained' onClick={onClickAdd}>
+        Add
+      </Button>
+    </Container>
+  );
+};
 
 const Container = styled.div`
   text-align: center;

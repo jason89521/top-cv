@@ -1,65 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import Header from '../Header';
 import GeneralForm from './Form/GeneralForm';
 import OtherForm from './Form/OtherForm';
 import Preview from './Preview/Preview';
 
-class App extends React.Component {
-  state = {
-    generalInfo: {
-      headshotSrc: '',
-      name: '',
-      email: '',
-      phone: '',
-      address: '',
-      biography: '',
-    },
-    educationInfo: [],
-    experienceInfo: [],
+const App = () => {
+  const [generalInfo, setGeneralInfo] = useState({
+    headshotSrc: '',
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    biography: '',
+  });
+  const [educationInfo, setEducationInfo] = useState([]);
+  const [experienceInfo, setExperienceInfo] = useState([]);
+
+  const updateGeneralInfo = (property, value) => {
+    const info = { ...generalInfo };
+    info[property] = value;
+    setGeneralInfo(info);
   };
 
-  /**
-   * GeneralForm component call this function whenever it update info.
-   */
-  updateGeneralInfo = (property, value) => {
-    const generalInfo = { ...this.state.generalInfo };
-    generalInfo[property] = value;
-    this.setState({ generalInfo: generalInfo });
+  const updateOtherInfo = (title, blocks) => {
+    title === 'Education' ? setEducationInfo(blocks) : setExperienceInfo(blocks);
   };
 
-  /**
-   * OtherForm component call this function whenever it update info.
-   */
-  updateOtherInfo = (title, blocks) => {
-    if (title === 'Education') this.setState({ educationInfo: blocks });
-    else this.setState({ experienceInfo: blocks });
-  };
+  return (
+    <React.Fragment>
+      <GlobalStyles />
+      <Header />
 
-  render() {
-    return (
-      <React.Fragment>
-        <GlobalStyles />
-        <Header />
-
-        <Main>
-          <GeneralForm info={this.state.generalInfo} onUpdate={this.updateGeneralInfo} />
-          <OtherForm
-            title='Education'
-            onUpdate={this.updateOtherInfo}
-            info={this.state.educationInfo}
-          />
-          <OtherForm
-            title='Experience'
-            onUpdate={this.updateOtherInfo}
-            info={this.state.experienceInfo}
-          />
-          <Preview {...this.state} />
-        </Main>
-      </React.Fragment>
-    );
-  }
-}
+      <Main>
+        <GeneralForm info={generalInfo} onUpdate={updateGeneralInfo} />
+        <OtherForm title='Education' onUpdate={updateOtherInfo} info={educationInfo} />
+        <OtherForm title='Experience' onUpdate={updateOtherInfo} info={experienceInfo} />
+        <Preview
+          generalInfo={generalInfo}
+          educationInfo={educationInfo}
+          experienceInfo={experienceInfo}
+        />
+      </Main>
+    </React.Fragment>
+  );
+};
 
 const GlobalStyles = createGlobalStyle`
   * {

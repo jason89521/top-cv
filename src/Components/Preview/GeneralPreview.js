@@ -1,21 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-class GeneralPreview extends React.Component {
-  render() {
-    const { generalInfo } = this.props;
-    return (
-      <Container>
-        <img src={generalInfo.headshotSrc} alt='' />
-        <span>{generalInfo.name}</span>
-        <span>{generalInfo.email}</span>
-        <span>{generalInfo.phone}</span>
-        <span>{generalInfo.address}</span>
-        <p>{generalInfo.biography}</p>
-      </Container>
-    );
-  }
-}
+const GeneralPreview = ({ generalInfo }) => {
+  return (
+    <Container>
+      <img src={generalInfo.headshotSrc} alt='' />
+      <span>{generalInfo.name}</span>
+      <span>{generalInfo.email}</span>
+      <span>{generalInfo.phone}</span>
+      <span>{generalInfo.address}</span>
+      <p>{generalInfo.biography}</p>
+    </Container>
+  );
+};
 
 const Container = styled.div`
   margin-bottom: 5rem;
@@ -32,7 +29,7 @@ const Container = styled.div`
     height: 240px;
   }
 
-  p{
+  p {
     white-space: pre-line;
     word-break: break-word;
   }

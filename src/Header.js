@@ -1,15 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-class Header extends React.Component {
-  render() {
-    return (
-      <Container>
-        <span>cv creator</span>
-      </Container>
-    );
-  }
-}
+const Header = () => {
+  return (
+    <Container>
+      <span>cv creator</span>
+    </Container>
+  );
+};
 
 const Container = styled.header`
   background-image: linear-gradient(to right bottom, #7ed56f, #28b485);

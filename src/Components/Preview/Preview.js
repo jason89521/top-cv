@@ -3,20 +3,17 @@ import styled from 'styled-components';
 import GeneralPreview from './GeneralPreview';
 import OtherPreview from './OtherPreview';
 
-class Preview extends React.Component {
-  render() {
-    const { generalInfo, educationInfo, experienceInfo } = this.props;
-    return (
-      <Container>
-        <GeneralPreview generalInfo={generalInfo} />
-        <div>
-          <OtherPreview title='Education' info={educationInfo} />
-          <OtherPreview title='Experience' info={experienceInfo} />
-        </div>
-      </Container>
-    );
-  }
-}
+const Preview = ({ generalInfo, educationInfo, experienceInfo }) => {
+  return (
+    <Container>
+      <GeneralPreview generalInfo={generalInfo} />
+      <div>
+        <OtherPreview title='Education' info={educationInfo} />
+        <OtherPreview title='Experience' info={experienceInfo} />
+      </div>
+    </Container>
+  );
+};
 
 const Container = styled.div`
   padding: 2rem 5rem;

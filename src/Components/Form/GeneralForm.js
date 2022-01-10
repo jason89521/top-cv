@@ -3,39 +3,32 @@ import React from 'react';
 import styled from 'styled-components';
 import Headshot from './Headshot';
 
-class GeneralInfo extends React.Component {
-  onInputChange = event => {
-    this.props.onUpdate(event.target.id, event.target.value);
-  };
+const GeneralInfo = ({ onUpdate }) => {
+  const onInputChange = event => onUpdate(event.target.id, event.target.value);
+  const onImageChange = url => onUpdate('headshotSrc', url);
 
-  onImageChange = url => {
-    this.props.onUpdate('headshotSrc', url);
-  };
+  return (
+    <div>
+      <TopDiv>
+        <Headshot onImageChange={onImageChange} />
+        <div>
+          <TextField id='name' label='Name' onChange={onInputChange} />
+          <TextField id='email' label='Email' onChange={onInputChange} />
+          <TextField id='phone' label='Phone' onChange={onInputChange} />
+          <TextField id='address' label='Address' onChange={onInputChange} />
+        </div>
+      </TopDiv>
 
-  render() {
-    return (
-      <div>
-        <TopDiv>
-          <Headshot onImageChange={this.onImageChange} />
-          <div>
-            <TextField id='name' label='Name' onChange={this.onInputChange} />
-            <TextField id='email' label='Email' onChange={this.onInputChange} />
-            <TextField id='phone' label='Phone' onChange={this.onInputChange} />
-            <TextField id='address' label='Address' onChange={this.onInputChange} />
-          </div>
-        </TopDiv>
-
-        <TextField
-          multiline
-          rows={5}
-          id='biography'
-          label='Biography'
-          onChange={this.onInputChange}
-        />
-      </div>
-    );
-  }
-}
+      <TextField
+        multiline
+        rows={5}
+        id='biography'
+        label='Biography'
+        onChange={onInputChange}
+      />
+    </div>
+  );
+};
 
 const TopDiv = styled.div`
   display: flex;
